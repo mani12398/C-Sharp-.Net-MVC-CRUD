@@ -1,0 +1,61 @@
+﻿@model MVC_CRUD.Models.Product
+
+@{
+    ViewBag.Title = "Add Product";
+}
+
+<h2>Add Product</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="successMessage" class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product_Name, "Product Name", htmlAttributes: new { @class = "control-label col-md-2 fw-bold" })
+            <div class="col-md-10">
+                <input type="text" name="Product_Name" class="form-control" placeholder="Enter Product Name" required />
+                @Html.ValidationMessageFor(model => model.Product_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product_Price, "Product Price", htmlAttributes: new { @class = "control-label col-md-2 fw-bold" })
+            <div class="col-md-10">
+                <input type="number" min="0" name="Product_Price" class="form-control" placeholder="Enter Product Price" required />
+                @Html.ValidationMessageFor(model => model.Product_Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product_Count, "Product Count", htmlAttributes: new { @class = "control-label col-md-2 fw-bold" })
+            <div class="col-md-10">
+                <input type="number" min="0" name="Product_Count" class="form-control" placeholder="Enter Product Count" required />
+                @Html.ValidationMessageFor(model => model.Product_Count, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Product" class="btn btn-primary" style="margin-top: 10px;" id="btnAddProduct" />
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/Create.js"></script>
+
+
+

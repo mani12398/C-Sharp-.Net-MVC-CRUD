@@ -1,0 +1,110 @@
+﻿/* SignUp.css */
+
+/* Center align the signup form */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /*background-color: #f0f0f0; /* Fallback color */
+    /*0background-image: linear-gradient(to bottom right, #f0f0f0, #ffffff); /* Gradient background */
+}
+
+/* Style the signup form */
+.register-form {
+    max-width: 400px;
+    width: 90%; /* Adjust width for smaller screens */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0.1, 0.1, 0.1, 0.1);
+}
+
+/* Form heading */
+.form-signup-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form inputs */
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: inline-block;
+        width: 100px; /* Adjust label width as needed */
+        margin-bottom: 5px;
+    }
+
+.form-control {
+    height: 50px;
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+    /* Adjust placeholder color for inputs */
+    .form-control::placeholder {
+        color: gray;
+    }
+
+/* Toggle password icon */
+.toggle-password {
+    cursor: pointer;
+}
+
+/* Error message */
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Sign up button */
+.btn-primary {
+    font-size: 16px;
+    height: 50px;
+    border-radius: 4px;
+    width: 100%; /* Make button full width */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .register-form {
+        max-width: 90%; /* Adjust maximum width */
+    }
+
+    .form-signup-heading {
+        font-size: 20px; /* Decrease font size for smaller screens */
+    }
+
+    .btn-primary {
+        font-size: 14px; /* Decrease button font size for smaller screens */
+    }
+
+    .form-group label {
+        width: 90px; /* Adjust label width for smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .register-form {
+        width: 100%; /* Full width on smaller screens */
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+
+    .form-signup-heading {
+        font-size: 18px; /* Decrease font size for smaller screens */
+    }
+
+    .btn-primary {
+        font-size: 14px; /* Decrease button font size for smaller screens */
+    }
+
+    .form-group label {
+        width: 80px; /* Adjust label width for even smaller screens */
+    }
+}

@@ -1,0 +1,71 @@
+﻿@model MVC_CRUD.Models.LoginSignUp
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null; // Remove the shared layout
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add Bootstrap CSS link here if not included in the layout -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/Content/Login.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container login-container">
+        <div class="login-form">
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "form-signin" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <h2 class="form-signin-heading text-center">Please Sign In</h2>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group position-relative">
+                    @Html.LabelFor(m => m.Username, new { @class = "sr-only" })
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username Or Email", required = "required", autofocus = "autofocus" })
+                </div>
+
+                <!-- Password field with toggle icon -->
+                <div class="form-group position-relative">
+                    @Html.LabelFor(m => m.UserPassword, new { @class = "sr-only" })
+                    <div class="input-group">
+                        @Html.PasswordFor(m => m.UserPassword, new { @class = "form-control", placeholder = "Password", required = "required", id = "password", autocomplete = "new-password" })
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary toggle-password" aria-label="Toggle password visibility">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+
+
+                <div class="form-group form-check">
+                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input", id = "rememberMe" })
+                    @Html.LabelFor(m => m.RememberMe, "Remember Me", new { @class = "form-check-label", id = "rememberMeLabel" })
+                </div>
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+                <!-- Add Sign Up and Forgot Password links -->
+                <div class="text-center mt-3">
+                    <p>Don't have an account? <a href="@Url.Action("Register", "SignUp")">Sign up here</a></p>
+                    <p><a href="@Url.Action("ForgotPassword", "Login")">Forgot your password?</a></p>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- Add jQuery and Bootstrap JS and dependencies here if not included in the layout -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Login.js"></script>
+</body>
+</html>

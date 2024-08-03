@@ -1,0 +1,95 @@
+﻿@model MVC_CRUD.Models.LoginSignUp
+
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+   
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/Content/SignUp.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <div class="container register-container">
+        <div class="register-form">
+            @using (Html.BeginForm("Register", "SignUp", FormMethod.Post, new { @class = "form-signup", id = "signupForm" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <h2 class="form-signup-heading">Create an Account</h2>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success" role="alert">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Username, new { @class = "sr-only" })
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", required = "required", autofocus = "autofocus" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "sr-only" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email", required = "required", type = "email" })
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Mobile_No, new { @class = "sr-only" })
+                    @Html.TextBoxFor(m => m.Mobile_No, new { @class = "form-control", placeholder = "Mobile No", required = "required", id = "mobileNo" ,maxlength = 11 })
+                    <span class="error-message" id="mobileNoError"></span>
+                </div>
+
+                <div class="form-group position-relative">
+                    @Html.LabelFor(m => m.UserPassword, new { @class = "sr-only" })
+                    <div class="input-group">
+                        @Html.PasswordFor(m => m.UserPassword, new { @class = "form-control", placeholder = "Password", required = "required", id = "password", autocomplete = "new-password" })
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary toggle-password" aria-label="Toggle password visibility" toggle="#password">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+                <!-- Confirm Password field with toggle icon -->
+                <div class="form-group position-relative">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "sr-only" })
+                    <div class="input-group">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password", required = "required", id = "confirmPassword", autocomplete = "new-password", })
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary toggle-password" aria-label="Toggle password visibility" toggle="#confirmPassword">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <span class="error-message" id="confirmPasswordError"></span>
+                </div>
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+                <p class="text-center mt-3">
+                    Already have an account? <a href="@Url.Action("Login", "Login")">Login</a>
+                </p>
+            }
+        </div>
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/SignUp.js"></script>
+</body>
+</html>

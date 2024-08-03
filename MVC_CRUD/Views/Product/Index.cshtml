@@ -1,0 +1,78 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "Products";
+}
+
+<h4>Welcome, @ViewBag.Username</h4>
+<p><strong>ID:</strong> @ViewBag.Id</p>
+<p><strong>Email:</strong> @ViewBag.Email</p>
+<p><strong>Mobile No:</strong> @ViewBag.Mobile_No</p>
+<p><strong>User Role:</strong> @ViewBag.UserRole</p>
+
+<div class="input-group mb-3 d-flex justify-content-center">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search..." onkeyup="myFunction()">
+</div>
+
+<table id="products" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="text-align: center;">Product ID</th>
+            <th style="text-align: center;">Product Name</th>
+            <th style="text-align: center;">Product Price</th>
+            <th style="text-align: center;">Product Count</th>
+            <th style="text-align: center;">Total Price</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Rows.Count; i++)
+        {
+            int productId = Convert.ToInt32(Model.Rows[i][0]);
+            string productName = Model.Rows[i][1].ToString();
+            long productPrice = Convert.ToInt64(Model.Rows[i][2]);
+            long productCount = Convert.ToInt64(Model.Rows[i][3]);
+            long totalPrice = productPrice * productCount;
+            <tr id="row_@productId">
+                <td style="text-align: center;">@productId</td>
+                <td style="text-align: center;">@productName</td>
+                <td style="text-align: center;">@string.Format("{0:N0} PKR", productPrice)</td>
+                <td style="text-align: center;">@string.Format("{0:N0}", productCount)</td>
+                <td style="text-align: center;">@string.Format("{0:N0} PKR", totalPrice)</td>
+                <td style="text-align: center;">
+                    @if (ViewBag.UserRole == "Admin")
+                    {
+                        <a href="@Url.Action("Edit", "Product", new { id = productId })">Edit</a>
+                        <text> | </text>
+                        <a href="@Url.Action("Delete", "Product", new { id = productId })" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Edit", "Product", new { id = productId })">Edit</a>
+                        
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div style="margin-top: 20px;">
+    <strong>Total Amount:</strong> @CalculateTotalAmount(Model)
+</div>
+
+@functions {
+    public string CalculateTotalAmount(System.Data.DataTable dataTable)
+    {
+        long totalAmount = 0;
+        foreach (System.Data.DataRow row in dataTable.Rows)
+        {
+            long productPrice = Convert.ToInt64(row[2]);
+            long productCount = Convert.ToInt64(row[3]);
+            totalAmount += productPrice * productCount;
+        }
+        return string.Format("{0:N0} PKR", totalAmount);
+    }
+}
+
+<script src="~/Scripts/Index.js"></script>
